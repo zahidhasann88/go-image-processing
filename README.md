@@ -34,7 +34,7 @@ To build the Docker image for the server, navigate to the root directory of your
 docker-compose build
 ```
 
--To start your application along with the database (if using Docker Compose):
+- To start your application along with the database (if using Docker Compose):
 ```bash
 docker-compose up
 ```
@@ -115,6 +115,16 @@ make run
 If you prefer to run the server outside of Docker, you can still do so using:
 ```bash
 go run cmd/server/main.go
+```
+
+## Build Steps
+- Build the Application: Use the go build command to compile your application into an executable binary. Run the following command:
+```bash
+go build -o image-processing-app cmd/server/main.go
+```
+- Run the Application: Once built, you can run the application directly from the command line. For example:
+```bash
+./image-processing-app
 ```
 
 ## Endpoints
