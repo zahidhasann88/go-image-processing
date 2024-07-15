@@ -1,12 +1,10 @@
-Apologies for the confusion. Let's add Docker instructions specifically for your Golang Image Processing Library project:
 
-Here's how you can modify your `README.md` file to include Docker instructions:
-
-```markdown
 # Golang Image Processing Library
 
 ## Overview
 This library provides a set of image processing functions with a RESTful API interface.
+
+```markdown
 
 ## Features
 - Resize
