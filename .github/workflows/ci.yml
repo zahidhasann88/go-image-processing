@@ -1,12 +1,12 @@
-name: CI
+name: Go CI
 
 on:
   push:
     branches:
-      - main
+      - main  # Adjust branch name if needed
   pull_request:
     branches:
-      - main
+      - main  # Adjust branch name if needed
 
 jobs:
   build:
@@ -19,9 +19,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.22.1'
+          go-version: 1.17  # Adjust Go version as needed
 
-      - name: Build and test
-        run: |
-          go mod download  # Optionally download dependencies explicitly
-          go test ./...
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run tests
+        run: go test -v ./...
+
+      # Add more steps as needed (e.g., linting, building)
+
