@@ -2,30 +2,23 @@ name: Go CI
 
 on:
   push:
-    branches:
-      - main  # Adjust branch name if needed
+    branches: [ main ]
   pull_request:
-    branches:
-      - main  # Adjust branch name if needed
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17  # Adjust Go version as needed
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
 
-      - name: Install dependencies
-        run: go mod download
+    - name: Build
+      run: go build -v ./...
 
-      - name: Run tests
-        run: go test -v ./...
-
-      # Add more steps as needed (e.g., linting, building)
-
+    - name: Test
+      run: go test -v ./...
