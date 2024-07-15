@@ -112,8 +112,9 @@ func HandleUpload(c *gin.Context) {
 		return
 	}
 
-	// Return the processed image file
-	c.File(processedFile.Name())
+	// Return the processed image URL
+	processedURL := fmt.Sprintf("http://localhost:8080/uploads/%s", processedFile.Name())
+	c.JSON(http.StatusOK, gin.H{"message": "Image processed successfully", "url": processedURL})
 }
 
 func HandleBatchUpload(c *gin.Context) {
