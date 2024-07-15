@@ -132,6 +132,7 @@ func HandleBatchUpload(c *gin.Context) {
 	files := form.File["images"]
 	var wg sync.WaitGroup
 	errors := make(chan error, len(files))
+	var processedImagePaths []string
 
 	for _, file := range files {
 		wg.Add(1)
@@ -204,8 +205,8 @@ func HandleBatchUpload(c *gin.Context) {
 				errors <- fmt.Errorf("failed to save processed image: %w", err)
 				return
 			}
-
 			// Save processedFile to a storage or return URLs
+			processedImagePaths = append(processedImagePaths, processedFile.Name())
 		}(file)
 	}
 
@@ -221,7 +222,10 @@ func HandleBatchUpload(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Batch processing completed successfully"})
+	c.JSON(http.StatusOK, gin.H{
+		"message":              "Batch processing completed successfully",
+		"processed_image_uris": processedImagePaths,
+	})
 }
 
 func HandleAsyncUpload(c *gin.Context) {
