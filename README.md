@@ -30,6 +30,18 @@ Make sure you have Docker installed on your machine. You can download it from [D
 
 ### Build Docker Image
 To build the Docker image for the server, navigate to the root directory of your project where the Dockerfile is located and run:
+
+- To build your Docker image:
+```bash
+docker-compose build
+```
+
+-To start your application along with the database (if using Docker Compose):
+```bash
+docker-compose up
+```
+
+### Alternatively, to run only your application (if not using Docker Compose):
 ```bash
 docker build -t image-processing-server .
 ```

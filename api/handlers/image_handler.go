@@ -28,6 +28,7 @@ type Task struct {
 	Req  ProcessingRequest
 }
 
+// HandleUpload handles single image upload and processing
 func HandleUpload(c *gin.Context) {
 	var req ProcessingRequest
 	if err := c.ShouldBind(&req); err != nil {
@@ -112,9 +113,17 @@ func HandleUpload(c *gin.Context) {
 		return
 	}
 
+	// Construct the processed image URL dynamically
+	processedURL := constructProcessedURL(processedFile.Name(), c.Request)
+
 	// Return the processed image URL
-	processedURL := fmt.Sprintf("http://localhost:8080/uploads/%s", processedFile.Name())
 	c.JSON(http.StatusOK, gin.H{"message": "Image processed successfully", "url": processedURL})
+}
+
+// constructProcessedURL constructs the URL for accessing a processed image
+func constructProcessedURL(filename string, req *http.Request) string {
+	baseURL := "http://" + req.Host + "/uploads/" + filename
+	return baseURL
 }
 
 func HandleBatchUpload(c *gin.Context) {
